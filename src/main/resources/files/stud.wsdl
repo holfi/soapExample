@@ -1,0 +1,43 @@
+<definitions targetNamespace="http://proxy.std.msr.com/schemas" name="FindStudentMFCService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://proxy.std.msr.com/schemas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://proxy.std.msr.com/schemas" schemaLocation="FindStudentMFCService.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="findStudent">
+        <part name="request" element="tns:findStudentMFCRequest"/>
+    </message>
+    <message name="findStudentResponse">
+        <part name="response" element="tns:findStudentMFCResponse"/>
+    </message>
+    <message name="ServiceException">
+        <part name="fault" element="tns:serviceException"/>
+    </message>
+    <portType name="FindStudentMFCServicePortType">
+        <operation name="findStudent">
+            <input wsam:Action="findStudent" message="tns:findStudent"/>
+            <output wsam:Action="http://proxy.std.msr.com/schemas/FindStudentMFCServicePortType/findStudentResponse" message="tns:findStudentResponse"/>
+            <fault message="tns:ServiceException" name="ServiceException" wsam:Action="http://proxy.std.msr.com/schemas/FindStudentMFCServicePortType/findStudent/Fault/ServiceException"/>
+        </operation>
+    </portType>
+    <binding name="FindStudentMFCServicePortBinding" type="tns:FindStudentMFCServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="findStudent">
+            <soap:operation soapAction="findStudent"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="FindStudentMFCService">
+        <port name="FindStudentMFCServicePort" binding="tns:FindStudentMFCServicePortBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </port>
+    </service>
+</definitions>

@@ -1,0 +1,178 @@
+<xs:schema xmlns:tns="http://proxy.std.msr.com/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proxy.std.msr.com/schemas" version="1.0">
+    <xs:element name="findStudentMFCRequest" type="tns:FindStudentMFCRequest" nillable="true"/>
+    <xs:element name="findStudentMFCResponse" type="tns:FindStudentMFCResponse" nillable="true"/>
+    <xs:element name="serviceException" type="tns:ServiceExceptionBean" nillable="true"/>
+    <xs:complexType name="FindStudentMFCRequest">
+        <xs:sequence>
+            <xs:element name="universityInfo" type="tns:UniversityInfo"/>
+            <xs:element name="personInfo" type="tns:SearchBean"/>
+            <xs:element name="department" type="tns:Department"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UniversityInfo">
+        <xs:annotation>
+            <xs:documentation>Данные об УЗ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="universityCode" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Код вуза</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="facultyCode" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Код вуза</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SearchBean">
+        <xs:sequence>
+            <xs:element name="name" type="tns:Name">
+                <xs:annotation>
+                    <xs:documentation>ФИО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="birthday" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Дата рождения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sex" type="tns:Sex">
+                <xs:annotation>
+                    <xs:documentation>Пол</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Department">
+        <xs:annotation>
+            <xs:documentation>Информация об организации, выполняющей запрос</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Наименование</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="code" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Код</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="responsible" type="tns:Responsible">
+                <xs:annotation>
+                    <xs:documentation>Информация о сотруднике</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Responsible">
+        <xs:sequence>
+            <xs:element name="name" type="tns:Name">
+                <xs:annotation>
+                    <xs:documentation>ФИО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="jobTitle" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Должность</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Name">
+        <xs:sequence>
+            <xs:element name="firstName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="lastName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="middleName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FindStudentMFCResponse">
+        <xs:sequence>
+            <xs:element name="result" type="tns:FoundResult">
+                <xs:annotation>
+                    <xs:documentation>Результат поиска</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="contact" type="tns:ContactMos" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Данные контактного лица</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ContactMos">
+        <xs:sequence>
+            <xs:element name="name" type="tns:Name">
+                <xs:annotation>
+                    <xs:documentation>ФИО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="phone" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Телефон</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="email" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>EMAIL</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Адрес</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ServiceExceptionBean">
+        <xs:sequence>
+            <xs:element name="errorCode" type="xs:int"/>
+            <xs:element name="comment" type="xs:string" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Sex">
+        <xs:annotation>
+            <xs:documentation>Пол</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MALE">
+                <xs:annotation>
+                    <xs:documentation>мужской</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FEMALE">
+                <xs:annotation>
+                    <xs:documentation>женский</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FoundResult">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FOUND">
+                <xs:annotation>
+                    <xs:documentation>найден</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NOT_FOUND">
+                <xs:annotation>
+                    <xs:documentation>не найден</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
